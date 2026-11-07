@@ -1,0 +1,40 @@
+# EXAMPLE ONLY: replace ports and exact model strings using `discover`.
+# USB device addresses can change on reconnect/reboot!
+backend = "gphoto2"
+
+[capture]
+event_timeout = 20.0
+settle_seconds = 0.5
+command_timeout = 45.0
+download_parallelism = 2
+download_retries = 1
+minimum_free_mb = 512
+
+[[cameras]]
+id = "left-a6000"
+position = 0
+port = "usb:001,005"
+model = "Sony Alpha-A6000 (Control)"
+# serial = "REAL_SERIAL_FROM_CHECK"
+files_per_take = 1
+
+[[cameras]]
+id = "left-center-a6300"
+position = 1
+port = "usb:001,006"
+model = "Sony Alpha-A6300 (Control)"
+files_per_take = 1
+
+[[cameras]]
+id = "right-center-a6700"
+position = 2
+port = "usb:002,004"
+model = "Sony A6700 (PC Control)"
+files_per_take = 1
+
+[[cameras]]
+id = "right-zve10"
+position = 3
+port = "usb:001,007"
+model = "Sony ZV-E10 (Control)"
+files_per_take = 1

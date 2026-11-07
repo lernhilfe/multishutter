@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+captures/
+config/rig.local.toml
+config/*.local.toml
+config/*.bak
+distribution-info.json
+.setup/
+data/
+demo-data/
+demo-captures/

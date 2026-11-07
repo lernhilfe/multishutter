@@ -1,0 +1,12 @@
+.git
+.setup
+captures
+data
+demo-data
+demo-captures
+.venv*
+**/__pycache__
+config/*.local.toml
+config/rig.local.toml
+tests
+*.zip

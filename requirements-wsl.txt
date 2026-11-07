@@ -1,0 +1,2 @@
+# Linux wheel includes a recent libgphoto2 with Sony A6700 support.
+gphoto2==2.6.4

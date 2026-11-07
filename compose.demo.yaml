@@ -1,0 +1,23 @@
+name: multishutter-demo
+services:
+  app:
+    build: .
+    image: multishutter:local
+    init: true
+    user: "1000:1000"
+    ports: ['${MULTISHUTTER_BIND:-127.0.0.1}:${MULTISHUTTER_PORT:-8001}:8000']
+    environment:
+      MULTISHUTTER_RIG: /app/config/rig.toml
+      MULTISHUTTER_STATE: /app/data
+      MULTISHUTTER_CAPTURES: /app/captures
+      MULTISHUTTER_LOCK_PATH: /runtime/rig.lock
+      HOME: /app/data/home
+    volumes:
+      - ./config/rig.simulated.toml:/app/config/rig.toml:ro
+      - ./demo-data:/app/data
+      - ./demo-captures:/app/captures
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: [/tmp, '/runtime:mode=1777']
+    stop_grace_period: 70s

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=65"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multishutter"
+version = "0.3.0"
+description = "Foreground multi-camera capture for Windows via WSL2, Linux and Raspberry Pi"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[project.scripts]
+multishutter = "multishutter.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["multishutter*"]
+
+[tool.setuptools.package-data]
+multishutter = ["static/*"]

@@ -1,0 +1,47 @@
+name: multishutter
+services:
+  app:
+    build: .
+    image: multishutter:local
+    init: true
+    restart: unless-stopped
+    user: "1000:1000"
+    group_add:
+      - "${USB_GID:-46}"
+    ports:
+      - "${MULTISHUTTER_BIND:-127.0.0.1}:${MULTISHUTTER_PORT:-8000}:8000"
+    environment:
+      MULTISHUTTER_RIG: /app/config/rig.toml
+      MULTISHUTTER_STATE: /app/data
+      MULTISHUTTER_CAPTURES: /app/captures
+      MULTISHUTTER_LOCK_PATH: /runtime/rig.lock
+      HOME: /app/data/home
+    volumes:
+      - type: bind
+        source: ${MULTISHUTTER_RIG_FILE:-./config/rig.local.toml}
+        target: /app/config/rig.toml
+        read_only: true
+        bind:
+          create_host_path: false
+      - ./data:/app/data
+      - ./captures:/app/captures
+      - /dev/bus/usb:/dev/bus/usb
+      - type: bind
+        source: ${MULTISHUTTER_LOCK_FILE:-/tmp/multishutter-1000.lock}
+        target: /runtime/rig.lock
+        bind:
+          create_host_path: false
+    device_cgroup_rules:
+      - 'c 189:* rmw'
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: [/tmp]
+    stop_grace_period: 70s
+    pids_limit: 192
+    mem_limit: 1g
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
